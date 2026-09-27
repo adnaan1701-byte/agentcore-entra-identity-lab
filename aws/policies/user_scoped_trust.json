@@ -1,0 +1,35 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AssumeOnlyWithSourceIdentity",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::{ACCOUNT_ID}:role/{PREFIX}-interceptor-role" },
+      "Action": ["sts:AssumeRole", "sts:SetSourceIdentity"],
+      "Condition": {
+        "Null": { "sts:SourceIdentity": "false" }
+      }
+    },
+    {
+      "Sid": "TagSessionOnlyWithApprovedKeysAndValues",
+      "Effect": "Allow",
+      "Principal": { "AWS": "arn:aws:iam::{ACCOUNT_ID}:role/{PREFIX}-interceptor-role" },
+      "Action": "sts:TagSession",
+      "Condition": {
+        "ForAllValues:StringEquals": { "aws:TagKeys": ["dept", "role", "clr", "tenant"] },
+        "StringEquals": {
+          "aws:RequestTag/dept": ["fin", "hr"],
+          "aws:RequestTag/role": ["analyst", "manager", "contractor"],
+          "aws:RequestTag/clr": ["public", "internal", "restr"],
+          "aws:RequestTag/tenant": "{TENANT_ID}"
+        },
+        "Null": {
+          "aws:RequestTag/dept": "false",
+          "aws:RequestTag/role": "false",
+          "aws:RequestTag/clr": "false",
+          "aws:RequestTag/tenant": "false"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListOnlyOwnDepartmentPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::{BUCKET}",
+      "Condition": { "StringLike": { "s3:prefix": ["${aws:PrincipalTag/dept}/*"] } }
+    },
+    {
+      "Sid": "ReadPublicInOwnDepartment",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::{BUCKET}/*",
+      "Condition": { "StringEquals": {
+        "s3:ExistingObjectTag/dept": "${aws:PrincipalTag/dept}",
+        "s3:ExistingObjectTag/sensitivity": "public" } }
+    },
+    {
+      "Sid": "ReadInternalInOwnDepartmentIfCleared",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::{BUCKET}/*",
+      "Condition": { "StringEquals": {
+        "s3:ExistingObjectTag/dept": "${aws:PrincipalTag/dept}",
+        "s3:ExistingObjectTag/sensitivity": "internal",
+        "aws:PrincipalTag/clr": ["internal", "restr"] } }
+    },
+    {
+      "Sid": "ReadRestrictedInOwnDepartmentIfCleared",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::{BUCKET}/*",
+      "Condition": { "StringEquals": {
+        "s3:ExistingObjectTag/dept": "${aws:PrincipalTag/dept}",
+        "s3:ExistingObjectTag/sensitivity": "restr",
+        "aws:PrincipalTag/clr": "restr" } }
+    },
+    {
+      "Sid": "DenyWritesAndTagTampering",
+      "Effect": "Deny",
+      "Action": ["s3:PutObject", "s3:PutObjectTagging", "s3:DeleteObjectTagging", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::{BUCKET}/*"
+    }
+  ]
+}

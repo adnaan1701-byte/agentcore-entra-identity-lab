@@ -1,0 +1,7 @@
+{
+  "fin/q3-revenue.csv":          { "dept": "fin", "sensitivity": "internal" },
+  "fin/payroll-bank-details.csv": { "dept": "fin", "sensitivity": "restr" },
+  "fin/team-handbook.md":        { "dept": "fin", "sensitivity": "public" },
+  "hr/salaries.csv":             { "dept": "hr",  "sensitivity": "restr" },
+  "hr/holiday-calendar.csv":     { "dept": "hr",  "sensitivity": "internal" }
+}

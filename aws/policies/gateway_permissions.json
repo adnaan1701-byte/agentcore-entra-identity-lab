@@ -1,0 +1,28 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeLabLambdas",
+      "Effect": "Allow",
+      "Action": "lambda:InvokeFunction",
+      "Resource": [
+        "arn:aws:lambda:{REGION}:{ACCOUNT_ID}:function:{PREFIX}-interceptor",
+        "arn:aws:lambda:{REGION}:{ACCOUNT_ID}:function:{PREFIX}-docs-tool"
+      ]
+    },
+    {
+      "Sid": "WorkloadIdentity",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock-agentcore:GetWorkloadAccessToken",
+        "bedrock-agentcore:GetWorkloadAccessTokenForJWT",
+        "bedrock-agentcore:GetWorkloadAccessTokenForUserId",
+        "bedrock-agentcore:CreateWorkloadIdentity"
+      ],
+      "Resource": [
+        "arn:aws:bedrock-agentcore:{REGION}:{ACCOUNT_ID}:workload-identity-directory/default",
+        "arn:aws:bedrock-agentcore:{REGION}:{ACCOUNT_ID}:workload-identity-directory/default/workload-identity/*"
+      ]
+    }
+  ]
+}

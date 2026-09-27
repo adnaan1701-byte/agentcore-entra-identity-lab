@@ -1,0 +1,9 @@
+[
+  {"dept_code": "fin", "employee_id": "E1001", "full_name": "Sample Employee 01", "job_title": "Financial Analyst", "salary_usd": 98000, "bank_last4": "4821"},
+  {"dept_code": "fin", "employee_id": "E1002", "full_name": "Sample Employee 02", "job_title": "Senior Accountant", "salary_usd": 121000, "bank_last4": "1177"},
+  {"dept_code": "fin", "employee_id": "E1003", "full_name": "Sample Employee 03", "job_title": "Payroll Specialist", "salary_usd": 87000, "bank_last4": "9034"},
+  {"dept_code": "fin", "employee_id": "E1004", "full_name": "Sample Employee 04", "job_title": "Contract Bookkeeper", "salary_usd": 64000, "bank_last4": "5512"},
+  {"dept_code": "hr", "employee_id": "E2001", "full_name": "Sample Employee 05", "job_title": "HR Business Partner", "salary_usd": 104000, "bank_last4": "7390"},
+  {"dept_code": "hr", "employee_id": "E2002", "full_name": "Sample Employee 06", "job_title": "Recruiter", "salary_usd": 79000, "bank_last4": "2268"},
+  {"dept_code": "hr", "employee_id": "E2003", "full_name": "Sample Employee 07", "job_title": "HR Manager", "salary_usd": 132000, "bank_last4": "6645"}
+]

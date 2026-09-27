@@ -1,0 +1,28 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "QueryOwnDepartmentRowsAllColumnsIfRestricted",
+      "Effect": "Allow",
+      "Action": "dynamodb:Query",
+      "Resource": "arn:aws:dynamodb:{REGION}:{ACCOUNT_ID}:table/{PREFIX}-employees",
+      "Condition": {
+        "ForAllValues:StringEquals": { "dynamodb:LeadingKeys": ["${aws:PrincipalTag/dept}"] },
+        "StringEquals": { "aws:PrincipalTag/clr": "restr" }
+      }
+    },
+    {
+      "Sid": "QueryOwnDepartmentRowsNonSensitiveColumnsOnly",
+      "Effect": "Allow",
+      "Action": "dynamodb:Query",
+      "Resource": "arn:aws:dynamodb:{REGION}:{ACCOUNT_ID}:table/{PREFIX}-employees",
+      "Condition": {
+        "ForAllValues:StringEquals": {
+          "dynamodb:LeadingKeys": ["${aws:PrincipalTag/dept}"],
+          "dynamodb:Attributes": ["dept_code", "employee_id", "full_name", "job_title"]
+        },
+        "StringEquals": { "dynamodb:Select": "SPECIFIC_ATTRIBUTES" }
+      }
+    }
+  ]
+}

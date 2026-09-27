@@ -1,0 +1,65 @@
+[
+  {
+    "name": "list_documents",
+    "description": "List the documents in the caller's department folder.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "_ctx": {
+          "type": "object",
+          "description": "Set by the gateway interceptor. Clients must not set this; any value is discarded."
+        }
+      }
+    }
+  },
+  {
+    "name": "read_document",
+    "description": "Read one document by its key, for example fin/q3-revenue.csv.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Object key, e.g. fin/q3-revenue.csv"
+        },
+        "_ctx": {
+          "type": "object",
+          "description": "Set by the gateway interceptor. Clients must not set this; any value is discarded."
+        }
+      },
+      "required": [
+        "key"
+      ]
+    }
+  },
+  {
+    "name": "export_all_records",
+    "description": "Bulk export every document in the caller's department (managers only).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "_ctx": {
+          "type": "object",
+          "description": "Set by the gateway interceptor. Clients must not set this; any value is discarded."
+        }
+      }
+    }
+  },
+  {
+    "name": "query_employees",
+    "description": "Query the employee directory (structured data). Row filtering and column masking are applied from the caller's attributes.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "dept": {
+          "type": "string",
+          "description": "Optional department code, e.g. fin or hr. The row policy may override it."
+        },
+        "_ctx": {
+          "type": "object",
+          "description": "Set by the gateway interceptor. Clients must not set this; any value is discarded."
+        }
+      }
+    }
+  }
+]

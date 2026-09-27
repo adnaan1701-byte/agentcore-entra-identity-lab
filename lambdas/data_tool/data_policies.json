@@ -1,0 +1,23 @@
+{
+  "_about": "Immuta-style policies for the employees data source. Authored once, applied per user from the attributes in the caller's tagged session (dept, role, clr). This mirrors Immuta's model (subscription policy + data policies: row filter and column masking); it is not Immuta's own policy syntax.",
+  "data_source": "employees",
+  "columns": ["dept_code", "employee_id", "full_name", "job_title", "salary_usd", "bank_last4"],
+  "subscription_policy": {
+    "description": "Analysts and managers may use this data source. Contractors may not.",
+    "allow_when": {"attribute": "role", "in": ["analyst", "manager"]}
+  },
+  "data_policies": [
+    {
+      "type": "row_filter",
+      "description": "Only show rows for the user's own department.",
+      "column": "dept_code",
+      "equals_user_attribute": "dept"
+    },
+    {
+      "type": "mask",
+      "description": "Redact pay and bank columns unless the user holds restricted clearance.",
+      "columns": ["salary_usd", "bank_last4"],
+      "unless": {"attribute": "clr", "in": ["restr"]}
+    }
+  ]
+}

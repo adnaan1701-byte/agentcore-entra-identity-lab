@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "MintTaggedUserSessionsOnly",
+      "Effect": "Allow",
+      "Action": ["sts:AssumeRole", "sts:TagSession", "sts:SetSourceIdentity"],
+      "Resource": "arn:aws:iam::{ACCOUNT_ID}:role/{PREFIX}-user-scoped-role"
+    },
+    {
+      "Sid": "ReadHrAttributes",
+      "Effect": "Allow",
+      "Action": "dynamodb:GetItem",
+      "Resource": "arn:aws:dynamodb:{REGION}:{ACCOUNT_ID}:table/{PREFIX}-hr-attributes"
+    }
+  ]
+}
