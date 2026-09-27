@@ -1,0 +1,4 @@
+-r requirements.txt
+PyJWT[crypto]>=2.8
+moto[all]>=5.0
+pytest>=8

@@ -1,0 +1,7 @@
+# Lab state: contains tenant IDs, test user passwords and cached tokens. Never commit.
+.lab/
+evidence/*.json
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
